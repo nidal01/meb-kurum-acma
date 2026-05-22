@@ -1,0 +1,13 @@
+---
+description: MEB.gov.tr benzeri kurumsal tasarım ve Next.js (App Router) standartları
+alwaysApply: true
+---
+
+# Proje Standartları (MEB Kurum Açma Danışmanlığı)
+
+- Tüm metinler Türkçe, profesyonel ve kurumsal tonda yazılır; "lorem ipsum" kullanılmaz.
+- Tasarım dili MEB.gov.tr hissiyatına yakın olmalı: beyaz zemin, açık gri yüzeyler, MEB kırmızısı vurgular.
+- Sadece hafif hover geçişleri kullan; abartılı animasyon yok.
+- Next.js App Router + TypeScript kullan; sayfalar `src/app/` altında.
+- UI bileşenleri `src/components/` altında küçük ve modüler tutulur.
+- Renkler Tailwind theme üzerinden yönetilir (`primary: #E30613`).

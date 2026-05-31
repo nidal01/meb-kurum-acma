@@ -26,17 +26,17 @@ cp .env.example .env.local
 
 ## Blog (Gemini + Supabase)
 
-- **Liste / detay:** `/blog`, `/blog/[slug]`
-- **Yönetim:** `/admin/blog` — `ADMIN_PASSWORD` ile API çağrıları
+- **Liste / detay:** `/blog`, `/blog/[slug]` — sidebar CTA, kapak görseli, iç linkler
+- **Admin panel:** `/admin/login` → oturum tabanlı giriş, rol yönetimi (süper admin / editör / yazar)
+- **CRUD:** yazı oluştur, düzenle, slug güncelle, yayınla, sil
 - **Ücretsiz AI:** [Google AI Studio](https://aistudio.google.com/apikey) → `GEMINI_API_KEY`
-- **Depolama:** Supabase’de `supabase/blog_posts.sql` dosyasını SQL Editor’da çalıştırın
-- **Örnek statik yazı:** `content/blog/*.mdx` (Supabase olmadan da görünür)
-- **Haftalık taslak:** Vercel Cron `vercel.json` → `CRON_SECRET` + env’ler
+- **Depolama:** Supabase'de `supabase/blog_posts.sql` + `supabase/blog_v2_migration.sql`
+- **Cron:** günde 2 taslak (06:00 ve 14:00 UTC) — `vercel.json`
 
 ```bash
-# Yerel test: .env.local içine anahtarları ekleyin
+# Yerel: .env.local içine anahtarları ekleyin
 npm run dev
-# Admin panel → konu gir → Gemini ile üret → taslağa kaydet → Yayınla
+# /admin/login → ADMIN_EMAIL + ADMIN_PASSWORD ile giriş
 ```
 
 ## Teknoloji

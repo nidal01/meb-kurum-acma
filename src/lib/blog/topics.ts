@@ -12,7 +12,8 @@ export const BLOG_TOPICS = [
   "Özel eğitim okulu ile rehabilitasyon merkezi: hangi kurum türü seçilmeli"
 ] as const;
 
-export function pickNextBlogTopic(): string {
-  const index = Math.floor(Date.now() / (1000 * 60 * 60 * 24 * 7)) % BLOG_TOPICS.length;
+export function pickNextBlogTopic(slot = 0): string {
+  const dayIndex = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+  const index = (dayIndex * 2 + slot) % BLOG_TOPICS.length;
   return BLOG_TOPICS[index];
 }

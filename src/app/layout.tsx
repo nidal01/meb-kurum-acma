@@ -1,8 +1,7 @@
 import type { Viewport } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { ConditionalSiteChrome } from "@/components/layout/ConditionalSiteChrome";
 import { buildRootMetadata } from "@/lib/seo";
 
 const roboto = Roboto({
@@ -27,9 +26,7 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={[roboto.className, "min-h-dvh bg-white text-text antialiased"].join(" ")}>
-        <Header />
-        <main className="min-h-[60dvh]">{children}</main>
-        <Footer />
+        <ConditionalSiteChrome>{children}</ConditionalSiteChrome>
       </body>
     </html>
   );

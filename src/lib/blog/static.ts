@@ -23,7 +23,10 @@ export function getStaticBlogPosts(): BlogPost[] {
       content,
       status: (data.status as BlogPost["status"]) ?? "published",
       keywords: Array.isArray(data.keywords) ? data.keywords.map(String) : [],
+      coverImage: data.coverImage ? String(data.coverImage) : "/images/hero-stripe.svg",
+      authorId: null,
       createdAt: String(data.date ?? new Date().toISOString()),
+      updatedAt: null,
       publishedAt: data.status === "draft" ? null : String(data.date ?? new Date().toISOString()),
       source: "static"
     };

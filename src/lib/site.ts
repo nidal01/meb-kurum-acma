@@ -15,12 +15,12 @@ export const SITE_CONTACT = {
 } as const;
 
 export const SITE_CONSULTANT = {
-  name: "Duygu Pekel",
+  name: "Duygu PEKEL",
   title: "Kurum Açma Danışmanınız",
   subtitle: "MEB mevzuatına uygun süreç yönetimi",
-  bio: "Uzm. Psk. Dan. Duygu Pekel Göksel; bebek ve çocuk gelişimi, gelişimsel bozukluklar, oyun terapisi ve aile danışmanlığı alanlarında uzmanlaşmış bir gelişim psikoloğu ve psikolojik danışmandır.",
+  bio: "Uzm. Psk. Dan. Duygu PEKEL; bebek ve çocuk gelişimi, gelişimsel bozukluklar, oyun terapisi ve aile danışmanlığı alanlarında uzmanlaşmış bir gelişim psikoloğu ve psikolojik danışmandır.",
   imageUrl: "https://babysensoryturkey.com/wp-content/uploads/2026/01/Adsiz-tasarim-15.png",
-  imageAlt: "Duygu Pekel — Kurum açma danışmanı"
+  imageAlt: "Duygu PEKEL — Kurum açma danışmanı"
 } as const;
 
 export const SITE_MAPS = {

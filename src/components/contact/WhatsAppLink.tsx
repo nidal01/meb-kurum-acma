@@ -1,4 +1,4 @@
-import { MessageCircle } from "lucide-react";
+import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { buildWhatsAppUrl, getWhatsAppDefaultMessage } from "@/lib/contact/whatsapp";
 
 type Props = {
@@ -23,7 +23,7 @@ export function WhatsAppLink({ variant = "link", className = "", label }: Props)
           className
         ].join(" ")}
       >
-        <MessageCircle className="h-7 w-7" aria-hidden />
+        <WhatsAppIcon className="h-8 w-8" />
       </a>
     );
   }
@@ -39,7 +39,7 @@ export function WhatsAppLink({ variant = "link", className = "", label }: Props)
           className
         ].join(" ")}
       >
-        <MessageCircle className="h-4 w-4" aria-hidden />
+        <WhatsAppIcon className="h-4 w-4" />
         {text}
       </a>
     );
@@ -52,7 +52,7 @@ export function WhatsAppLink({ variant = "link", className = "", label }: Props)
       rel="noopener noreferrer"
       className={["inline-flex items-center gap-2 font-medium hover:text-[#128C7E]", className].join(" ")}
     >
-      <MessageCircle className="h-4 w-4" aria-hidden />
+      <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
       {text}
     </a>
   );

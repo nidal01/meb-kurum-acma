@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     const hizmet = body.hizmet?.trim() ?? "";
     const mesaj = body.mesaj?.trim() ?? "";
 
-    if (ad.length < 2 || soyad.length < 2 || telefon.length < 10 || mesaj.length < 10) {
+    if (ad.length < 2 || soyad.length < 2 || telefon.replace(/\D/g, "").length < 10 || mesaj.length < 5) {
       return NextResponse.json({ error: "Lütfen tüm alanları eksiksiz doldurun." }, { status: 400 });
     }
 

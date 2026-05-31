@@ -13,6 +13,11 @@ export function makeOrganizationJsonLd() {
     description: SITE_DEFAULT_DESCRIPTION,
     email: SITE_CONTACT.email,
     telephone: SITE_CONTACT.phoneTel,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: SITE_CONTACT.address,
+      addressCountry: "TR"
+    },
     areaServed: {
       "@type": "Country",
       name: "Türkiye"

@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { GoogleMapEmbed } from "@/components/contact/GoogleMapEmbed";
 import { WhatsAppLink } from "@/components/contact/WhatsAppLink";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { RichText } from "@/components/content/RichText";
 import { makeFaqSchemaJsonLd, makePageSeoText, makeSiteWideFaq } from "@/lib/longform";
-import { SITE_CONTACT } from "@/lib/site";
+import { SITE_CONTACT, SITE_MAPS } from "@/lib/site";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -66,15 +67,26 @@ export default function ContactPage() {
               </div>
               <div>
                 <dt className="font-semibold text-gray-900">Adres</dt>
-                <dd>Örnek Mah. Resmî Cad. No: 12, Kat: 3, Merkez / İstanbul</dd>
+                <dd>
+                  {SITE_CONTACT.address}
+                  <br />
+                  <a
+                    href={SITE_MAPS.openUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 inline-block text-primary hover:underline"
+                  >
+                    Google Maps&apos;te yol tarifi al
+                  </a>
+                </dd>
               </div>
             </dl>
 
-            <div className="mt-6 rounded-sm border border-border bg-white p-4 shadow-card">
-              <p className="text-sm font-semibold text-gray-900">Harita</p>
-              <p className="mt-1 text-sm text-gray-700">
-                Harita entegrasyonu (Google Maps/iframe) kurulum aşamasında buraya eklenebilir.
-              </p>
+            <div className="mt-6">
+              <p className="text-sm font-semibold text-gray-900">Konum</p>
+              <div className="mt-2">
+                <GoogleMapEmbed minHeight={260} />
+              </div>
             </div>
           </aside>
         </div>

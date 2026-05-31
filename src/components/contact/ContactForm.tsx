@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 const OPTIONS = [
   "MEB Kurum Açma Danışmanlığı",
@@ -19,6 +19,19 @@ type FormState = {
   mesaj: string;
 };
 
+function phoneDigits(value: string): string {
+  return value.replace(/\D/g, "");
+}
+
+function validateForm(state: FormState): string | null {
+  if (state.ad.trim().length < 2) return "Lütfen adınızı girin.";
+  if (state.soyad.trim().length < 2) return "Lütfen soyadınızı girin.";
+  if (phoneDigits(state.telefon).length < 10) return "Geçerli bir telefon numarası girin.";
+  if (!state.hizmet) return "Lütfen ilgilendiğiniz hizmeti seçin.";
+  if (state.mesaj.trim().length < 5) return "Mesajınız en az 5 karakter olmalıdır.";
+  return null;
+}
+
 export function ContactForm() {
   const [state, setState] = useState<FormState>({
     ad: "",
@@ -30,16 +43,6 @@ export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const canSubmit = useMemo(() => {
-    return (
-      state.ad.trim().length >= 2 &&
-      state.soyad.trim().length >= 2 &&
-      state.telefon.trim().length >= 10 &&
-      state.hizmet !== "" &&
-      state.mesaj.trim().length >= 10
-    );
-  }, [state]);
-
   function onChange<K extends keyof FormState>(key: K, value: FormState[K]) {
     if (status !== "loading") {
       setStatus("idle");
@@ -50,7 +53,14 @@ export function ContactForm() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!canSubmit || status === "loading") return;
+    if (status === "loading") return;
+
+    const validationError = validateForm(state);
+    if (validationError) {
+      setStatus("error");
+      setErrorMessage(validationError);
+      return;
+    }
 
     setStatus("loading");
     setErrorMessage(null);
@@ -153,7 +163,7 @@ export function ContactForm() {
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <button
           type="submit"
-          disabled={!canSubmit || status === "loading"}
+          disabled={status === "loading"}
           className="inline-flex items-center justify-center rounded-sm bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-colors enabled:hover:bg-[#c90510] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {status === "loading" ? "Gönderiliyor…" : "Gönder"}

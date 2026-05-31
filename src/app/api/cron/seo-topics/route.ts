@@ -5,6 +5,8 @@ import { buildWeeklyTopicPool } from "@/lib/blog/topic-service";
 import { replaceWeeklyTopicPool, seedDefaultSeoKeywordsIfEmpty } from "@/lib/blog/topic-db";
 import { getIsoWeekKey } from "@/lib/blog/week";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
   if (!verifyCronRequest(req)) {
     return NextResponse.json({ error: "Yetkisiz" }, { status: 401 });

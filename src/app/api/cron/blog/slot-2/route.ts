@@ -9,11 +9,8 @@ export async function GET(req: NextRequest) {
   const unauthorized = assertCronAuthorized(req);
   if (unauthorized) return unauthorized;
 
-  const slotParam = req.nextUrl.searchParams.get("slot");
-  const slot = slotParam === "2" ? 1 : 0;
-
   try {
-    const result = await runBlogCron(slot);
+    const result = await runBlogCron(1);
     return NextResponse.json(result);
   } catch (e) {
     const message = e instanceof Error ? e.message : "Cron hatası";

@@ -5,8 +5,8 @@
       "schedule": "0 5 * * 1"
     },
     {
-      "path": "/api/cron/blog?slot=1",
-      "schedule": "20 14 * * *"
+      "path": "/api/cron/blog/slot-1",
+      "schedule": "50 14 * * *"
     }
   ]
 }

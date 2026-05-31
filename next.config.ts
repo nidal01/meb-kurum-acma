@@ -25,6 +25,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "image.pollinations.ai",
         pathname: "/**"
+      },
+      {
+        protocol: "https",
+        hostname: "babysensoryturkey.com",
+        pathname: "/wp-content/uploads/**"
       }
     ]
   }

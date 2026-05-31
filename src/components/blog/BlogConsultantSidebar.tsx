@@ -1,24 +1,33 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Phone, Mail } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { buildWhatsAppUrl } from "@/lib/contact/whatsapp";
-import { SITE_CONTACT } from "@/lib/site";
+import { SITE_CONSULTANT, SITE_CONTACT } from "@/lib/site";
 
 export function BlogConsultantSidebar() {
   return (
     <aside className="space-y-4 lg:sticky lg:top-6">
       <div className="rounded-sm border border-primary/20 bg-white p-5 shadow-card">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-            <Phone className="h-6 w-6" aria-hidden />
+          <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-primary/20 bg-surface">
+            <Image
+              src={SITE_CONSULTANT.imageUrl}
+              alt={SITE_CONSULTANT.imageAlt}
+              fill
+              sizes="56px"
+              className="object-cover object-center"
+            />
           </div>
-          <div>
-            <p className="text-sm font-semibold text-gray-900">Kurum Açma Danışmanınız</p>
-            <p className="text-xs text-gray-600">MEB mevzuatına uygun süreç yönetimi</p>
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-gray-900">{SITE_CONSULTANT.title}</p>
+            <p className="text-sm font-medium leading-snug text-primary">{SITE_CONSULTANT.name}</p>
+            <p className="mt-0.5 text-xs text-gray-600">{SITE_CONSULTANT.subtitle}</p>
           </div>
         </div>
         <p className="mt-4 text-sm leading-7 text-gray-700">
-          Kurum türünüze göre evrak, fiziki şart ve başvuru takvimini birlikte planlayalım. Ön görüşme ücretsizdir.
+          {SITE_CONSULTANT.bio} Kurum türünüze göre evrak, fiziki şart ve başvuru takvimini birlikte
+          planlayalım. Ön görüşme ücretsizdir.
         </p>
         <div className="mt-4 space-y-2 text-sm">
           <a

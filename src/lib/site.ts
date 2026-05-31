@@ -14,6 +14,15 @@ export const SITE_CONTACT = {
   address: "Barbaros, Millet Cd. 56/A, 34746 Ataşehir/İstanbul"
 } as const;
 
+export const SITE_CONSULTANT = {
+  name: "Duygu Pekel",
+  title: "Kurum Açma Danışmanınız",
+  subtitle: "MEB mevzuatına uygun süreç yönetimi",
+  bio: "Uzm. Psk. Dan. Duygu Pekel Göksel; bebek ve çocuk gelişimi, gelişimsel bozukluklar, oyun terapisi ve aile danışmanlığı alanlarında uzmanlaşmış bir gelişim psikoloğu ve psikolojik danışmandır.",
+  imageUrl: "https://babysensoryturkey.com/wp-content/uploads/2026/01/Adsiz-tasarim-15.png",
+  imageAlt: "Duygu Pekel — Kurum açma danışmanı"
+} as const;
+
 export const SITE_MAPS = {
   embedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.5782564849114!2d29.093629776321997!3d40.990714971352965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cac62d95cc2533%3A0x58440b9e3cf1f51f!2sBaby%20Sensory!5e0!3m2!1str!2str!4v1780234338008!5m2!1str!2str",

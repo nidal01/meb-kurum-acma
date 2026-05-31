@@ -7,6 +7,8 @@ export function getGeminiModel() {
   }
 
   const genAI = new GoogleGenerativeAI(apiKey);
-  // Ücretsiz kotada yaygın model
-  return genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL ?? "gemini-2.0-flash" });
+  // gemini-2.0-flash 1 Haz 2026'da kapanıyor; ücretsiz kotada 2.5 Flash-Lite önerilir
+  return genAI.getGenerativeModel({
+    model: process.env.GEMINI_MODEL ?? "gemini-2.5-flash-lite"
+  });
 }

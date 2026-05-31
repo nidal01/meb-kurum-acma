@@ -1,6 +1,6 @@
 import type { GeneratedBlogDraft } from "@/lib/blog/types";
 import { buildInternalLinkContext } from "@/lib/blog/internal-links";
-import { pickCoverImage, pickInlineImage } from "@/lib/blog/images";
+import { injectBlogImages, resolveBlogImages } from "@/lib/blog/resolve-images";
 import { slugify } from "@/lib/blog/slug";
 import { getGeminiModel } from "@/lib/gemini/client";
 import type { BlogPost } from "@/lib/blog/types";
@@ -19,7 +19,7 @@ Kurallar:
 - İçerikte en az 2 adet site içi link kullan (aşağıdaki URL listesinden seç)
 - İçerikte en az 1 adet görsel ekle: ![açıklayıcı alt metin](IMAGE_INLINE_1) formatında
 - İkinci bölümde bir görsel daha eklenebilir: ![alt metin](IMAGE_INLINE_2)
-- Kapak görseli için coverImagePlaceholder: "COVER" yaz`;
+- imageQueries: İngilizce, konuya özel 3 arama/üretim ifadesi (cover, inline1, inline2)`;
 
 function extractJson(text: string): string {
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/);
@@ -28,13 +28,6 @@ function extractJson(text: string): string {
   const end = text.lastIndexOf("}");
   if (start >= 0 && end > start) return text.slice(start, end + 1);
   return text.trim();
-}
-
-function injectImages(content: string, slug: string, coverImage: string): string {
-  return content
-    .replace(/!\[([^\]]*)\]\(COVER\)/g, `![$1](${coverImage})`)
-    .replace(/!\[([^\]]*)\]\(IMAGE_INLINE_1\)/g, `![$1](${pickInlineImage(slug, 1)})`)
-    .replace(/!\[([^\]]*)\]\(IMAGE_INLINE_2\)/g, `![$1](${pickInlineImage(slug, 2)})`);
 }
 
 export async function generateBlogPostWithGemini(
@@ -56,7 +49,12 @@ JSON şeması:
   "title": "string",
   "excerpt": "string (max 160 karakter)",
   "content": "string (markdown gövde, IMAGE_INLINE_1 ve IMAGE_INLINE_2 placeholder kullan)",
-  "keywords": ["string"]
+  "keywords": ["string"],
+  "imageQueries": {
+    "cover": "English search phrase for main cover photo",
+    "inline1": "English phrase for first inline image",
+    "inline2": "English phrase for second inline image"
+  }
 }`;
 
   const result = await model.generateContent(prompt);
@@ -66,22 +64,32 @@ JSON şeması:
     excerpt: string;
     content: string;
     keywords: string[];
+    imageQueries?: { cover?: string; inline1?: string; inline2?: string };
   };
 
   if (!parsed.title || !parsed.content) {
     throw new Error("Gemini yanıtı eksik alan içeriyor.");
   }
 
+  const keywords = Array.isArray(parsed.keywords) ? parsed.keywords.map(String) : [];
   const suggestedSlug = slugify(parsed.title);
-  const coverImage = pickCoverImage(suggestedSlug);
-  const content = injectImages(parsed.content.trim(), suggestedSlug, coverImage);
+
+  const images = await resolveBlogImages({
+    slug: suggestedSlug,
+    title: parsed.title,
+    topic,
+    keywords,
+    imageQueries: parsed.imageQueries
+  });
+
+  const content = injectBlogImages(parsed.content.trim(), images);
 
   return {
     title: parsed.title.trim(),
     excerpt: parsed.excerpt.trim(),
     content,
-    keywords: Array.isArray(parsed.keywords) ? parsed.keywords.map(String) : [],
+    keywords,
     suggestedSlug,
-    coverImage
+    coverImage: images.coverImage
   };
 }

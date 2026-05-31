@@ -66,7 +66,7 @@ export default async function BlogPostPage({ params }: Props) {
               fill
               className="object-cover"
               priority
-              unoptimized={cover.endsWith(".svg")}
+              unoptimized={cover.startsWith("http") || cover.endsWith(".svg")}
             />
           </div>
 

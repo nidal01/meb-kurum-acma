@@ -15,6 +15,16 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "www.meb.gov.tr",
         pathname: "/assets/img/**"
+      },
+      {
+        protocol: "https",
+        hostname: "images.pexels.com",
+        pathname: "/**"
+      },
+      {
+        protocol: "https",
+        hostname: "image.pollinations.ai",
+        pathname: "/**"
       }
     ]
   }

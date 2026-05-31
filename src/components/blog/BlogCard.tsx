@@ -14,7 +14,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
           alt=""
           fill
           className="object-cover"
-          unoptimized={cover.endsWith(".svg")}
+          unoptimized={cover.startsWith("http") || cover.endsWith(".svg")}
         />
       </div>
       <div className="p-5">

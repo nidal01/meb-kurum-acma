@@ -10,6 +10,7 @@ export function MarkdownContent({ content }: { content: string }) {
         components={{
           img: ({ src, alt }) => {
             if (!src || typeof src !== "string") return null;
+            const isExternal = src.startsWith("http");
             return (
               <span className="my-6 block overflow-hidden rounded-sm border border-border bg-surface">
                 <Image
@@ -18,7 +19,7 @@ export function MarkdownContent({ content }: { content: string }) {
                   width={800}
                   height={450}
                   className="h-auto w-full object-cover"
-                  unoptimized={src.endsWith(".svg")}
+                  unoptimized={isExternal || src.endsWith(".svg")}
                 />
               </span>
             );

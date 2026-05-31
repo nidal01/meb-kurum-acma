@@ -14,7 +14,9 @@ next-env.d.ts
 # env
 .env
 .env*.local
+.env.vercel
 !.env.example
+!.env.vercel.example
 
 # debug
 npm-debug.log*

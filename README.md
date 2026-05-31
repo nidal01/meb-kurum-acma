@@ -31,7 +31,9 @@ cp .env.example .env.local
 - **CRUD:** yazı oluştur, düzenle, slug güncelle, yayınla, sil
 - **Ücretsiz AI:** [Google AI Studio](https://aistudio.google.com/apikey) → `GEMINI_API_KEY`
 - **Depolama:** Supabase'de `supabase/blog_posts.sql` + `supabase/blog_v2_migration.sql`
-- **Cron:** günde 2 taslak (06:00 ve 14:00 UTC) — `vercel.json`
+- **Cron:** günde 2 taslak (06:00 ve 14:00 UTC) + Pazartesi SEO konu planı — `vercel.json`
+- **SEO konu havuzu:** `/admin/blog/topics` — AI haftalık plan, anahtar kelime yönetimi
+- **AEO / LLM:** `/llms.txt`, `/llms-full.txt` — yapay zeka asistanları için site rehberi
 
 ```bash
 # Yerel: .env.local içine anahtarları ekleyin

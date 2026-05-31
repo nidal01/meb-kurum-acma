@@ -8,6 +8,7 @@ import { BlogConsultantSidebar } from "@/components/blog/BlogConsultantSidebar";
 import { BlogRelatedLinks } from "@/components/blog/BlogRelatedLinks";
 import { getBlogPostBySlug, getPublishedBlogPosts } from "@/lib/blog";
 import { getRelatedPosts } from "@/lib/blog/internal-links";
+import { makeArticleJsonLd } from "@/lib/aeo/schema";
 import { buildPageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -44,7 +45,8 @@ export default async function BlogPostPage({ params }: Props) {
   const cover = post.coverImage ?? "/images/hero-stripe.svg";
 
   return (
-    <Container className="py-10 sm:py-12">
+    <>
+      <Container className="py-10 sm:py-12">
       <nav className="mb-4 text-xs text-gray-600">
         <Link href="/" className="hover:text-primary">
           Ana Sayfa
@@ -99,6 +101,13 @@ export default async function BlogPostPage({ params }: Props) {
           <BlogConsultantSidebar />
         </div>
       </div>
-    </Container>
+      </Container>
+
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(makeArticleJsonLd(post)) }}
+      />
+    </>
   );
 }

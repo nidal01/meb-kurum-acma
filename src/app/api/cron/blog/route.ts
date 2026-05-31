@@ -3,6 +3,7 @@ import { verifyCronRequest } from "@/lib/blog/auth";
 import { getAllBlogPosts } from "@/lib/blog";
 import { generateBlogPostWithGemini } from "@/lib/gemini/generate-post";
 import { insertBlogDraft, isBlogDbConfigured, publishBlogPost } from "@/lib/blog/db";
+import { markTopicUsed, pickTopicForSlot } from "@/lib/blog/topic-db";
 import { pickNextBlogTopic } from "@/lib/blog/topics";
 
 export async function GET(req: NextRequest) {
@@ -20,7 +21,9 @@ export async function GET(req: NextRequest) {
 
   try {
     const existingPosts = await getAllBlogPosts();
-    const topic = pickNextBlogTopic(slot);
+    const picked = await pickNextBlogTopic(slot);
+    const topic = picked.topic;
+
     const draft = await generateBlogPostWithGemini(topic, existingPosts);
 
     const saved = await insertBlogDraft({
@@ -31,6 +34,15 @@ export async function GET(req: NextRequest) {
       keywords: draft.keywords,
       coverImage: draft.coverImage
     });
+
+    if (picked.topicPoolId) {
+      await markTopicUsed(picked.topicPoolId, saved.id);
+    } else {
+      const poolItem = await pickTopicForSlot(slot as 0 | 1);
+      if (poolItem && poolItem.topic === topic) {
+        await markTopicUsed(poolItem.id, saved.id);
+      }
+    }
 
     if (autoPublish) {
       const published = await publishBlogPost(saved.id);

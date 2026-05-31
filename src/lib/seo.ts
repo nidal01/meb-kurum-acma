@@ -126,7 +126,13 @@ export function buildRootMetadata(): Metadata {
     robots: {
       index: true,
       follow: true,
-      googleBot: { index: true, follow: true, "max-image-preview": "large" }
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1
+      }
     },
     openGraph: sharedOpenGraph(canonical, defaultTitle, SITE_DEFAULT_DESCRIPTION, ogImage),
     twitter: sharedTwitter(defaultTitle, SITE_DEFAULT_DESCRIPTION, ogImage),
@@ -137,7 +143,9 @@ export function buildRootMetadata(): Metadata {
     },
     other: {
       "contact:email": SITE_CONTACT.email,
-      "contact:phone_number": SITE_CONTACT.phoneDisplay
+      "contact:phone_number": SITE_CONTACT.phoneDisplay,
+      "llms-txt": `${SITE_URL}/llms.txt`,
+      "llms-full-txt": `${SITE_URL}/llms-full.txt`
     }
   };
 }

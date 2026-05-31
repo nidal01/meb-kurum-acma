@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Phone, Mail, MessageCircle } from "lucide-react";
+import { buildWhatsAppUrl } from "@/lib/contact/whatsapp";
 import { SITE_CONTACT } from "@/lib/site";
 
 export function BlogConsultantSidebar() {
@@ -27,6 +28,15 @@ export function BlogConsultantSidebar() {
             {SITE_CONTACT.phoneDisplay}
           </a>
           <a
+            href={buildWhatsAppUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 font-medium text-gray-900 hover:text-[#128C7E]"
+          >
+            <MessageCircle className="h-4 w-4 text-[#25D366]" aria-hidden />
+            WhatsApp ile yazın
+          </a>
+          <a
             href={SITE_CONTACT.emailMailto}
             className="flex items-center gap-2 font-medium text-gray-900 hover:text-primary"
           >
@@ -34,12 +44,22 @@ export function BlogConsultantSidebar() {
             {SITE_CONTACT.email}
           </a>
         </div>
-        <Link
-          href="/iletisim"
-          className="mt-5 block rounded-sm bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#c90510]"
-        >
-          Ön Görüşme Talep Et
-        </Link>
+        <div className="mt-5 grid gap-2">
+          <a
+            href={buildWhatsAppUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block rounded-sm bg-[#25D366] px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#1ebe57]"
+          >
+            WhatsApp Ön Görüşme
+          </a>
+          <Link
+            href="/iletisim"
+            className="block rounded-sm bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-[#c90510]"
+          >
+            Form ile Talep Et
+          </Link>
+        </div>
       </div>
 
       <div className="rounded-sm border border-border bg-surface p-4 text-sm leading-7 text-gray-700">

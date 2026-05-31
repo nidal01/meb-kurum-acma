@@ -1,6 +1,10 @@
 {
   "crons": [
     {
+      "path": "/api/cron/seo-topics",
+      "schedule": "0 5 * * 1"
+    },
+    {
       "path": "/api/cron/blog?slot=1",
       "schedule": "0 6 * * *"
     },

@@ -26,6 +26,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(post.publishedAt ?? post.createdAt),
       changeFrequency: "monthly" as const,
       priority: 0.6
-    }))
+    })),
+    {
+      url: `${SITE_URL}/llms.txt`,
+      lastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.5
+    }
   ];
 }

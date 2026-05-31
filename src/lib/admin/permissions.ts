@@ -6,11 +6,20 @@ export type AdminAction =
   | "posts:update"
   | "posts:delete"
   | "posts:publish"
-  | "users:manage";
+  | "users:manage"
+  | "topics:manage";
 
 const ROLE_PERMISSIONS: Record<AdminRole, AdminAction[]> = {
-  super_admin: ["posts:read", "posts:create", "posts:update", "posts:delete", "posts:publish", "users:manage"],
-  editor: ["posts:read", "posts:create", "posts:update", "posts:delete", "posts:publish"],
+  super_admin: [
+    "posts:read",
+    "posts:create",
+    "posts:update",
+    "posts:delete",
+    "posts:publish",
+    "users:manage",
+    "topics:manage"
+  ],
+  editor: ["posts:read", "posts:create", "posts:update", "posts:delete", "posts:publish", "topics:manage"],
   author: ["posts:read", "posts:create", "posts:update"]
 };
 

@@ -27,7 +27,8 @@ export function ContactForm() {
     hizmet: "",
     mesaj: ""
   });
-  const [status, setStatus] = useState<"idle" | "ok">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const canSubmit = useMemo(() => {
     return (
@@ -40,19 +41,53 @@ export function ContactForm() {
   }, [state]);
 
   function onChange<K extends keyof FormState>(key: K, value: FormState[K]) {
-    setStatus("idle");
+    if (status !== "loading") {
+      setStatus("idle");
+      setErrorMessage(null);
+    }
     setState((s) => ({ ...s, [key]: value }));
   }
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!canSubmit) return;
-    // Şimdilik sadece demo: gerçek entegrasyon (e-posta/CRM) sonradan eklenebilir.
-    setStatus("ok");
+    if (!canSubmit || status === "loading") return;
+
+    setStatus("loading");
+    setErrorMessage(null);
+
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...state,
+          website: String(formData.get("website") ?? "")
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Gönderim başarısız");
+      setStatus("ok");
+      setState({ ad: "", soyad: "", telefon: "", hizmet: "", mesaj: "" });
+    } catch (err) {
+      setStatus("error");
+      setErrorMessage(err instanceof Error ? err.message : "Bir hata oluştu.");
+    }
   }
 
   return (
     <form onSubmit={onSubmit} className="grid gap-4">
+      {/* Honeypot — botlar için gizli alan */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        className="hidden"
+        aria-hidden
+      />
+
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Ad">
           <input
@@ -61,6 +96,7 @@ export function ContactForm() {
             className={inputClass}
             placeholder="Adınız"
             autoComplete="given-name"
+            required
           />
         </Field>
         <Field label="Soyad">
@@ -70,6 +106,7 @@ export function ContactForm() {
             className={inputClass}
             placeholder="Soyadınız"
             autoComplete="family-name"
+            required
           />
         </Field>
       </div>
@@ -83,10 +120,16 @@ export function ContactForm() {
             placeholder="05xx xxx xx xx"
             inputMode="tel"
             autoComplete="tel"
+            required
           />
         </Field>
         <Field label="İlgilenilen Hizmet">
-          <select value={state.hizmet} onChange={(e) => onChange("hizmet", e.target.value as FormState["hizmet"])} className={inputClass}>
+          <select
+            value={state.hizmet}
+            onChange={(e) => onChange("hizmet", e.target.value as FormState["hizmet"])}
+            className={inputClass}
+            required
+          >
             <option value="">Seçiniz</option>
             {OPTIONS.map((o) => (
               <option key={o} value={o}>
@@ -103,19 +146,24 @@ export function ContactForm() {
           onChange={(e) => onChange("mesaj", e.target.value)}
           className={[inputClass, "min-h-28"].join(" ")}
           placeholder="Kurum türünüz, bulunduğunuz il/ilçe ve hedef açılış tarihiniz gibi detayları paylaşabilirsiniz."
+          required
         />
       </Field>
 
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <button
           type="submit"
-          disabled={!canSubmit}
+          disabled={!canSubmit || status === "loading"}
           className="inline-flex items-center justify-center rounded-sm bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-card transition-colors enabled:hover:bg-[#c90510] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Gönder
+          {status === "loading" ? "Gönderiliyor…" : "Gönder"}
         </button>
         {status === "ok" ? (
-          <p className="text-sm font-medium text-green-700">Mesajınız alınmıştır. En kısa sürede sizinle iletişime geçeceğiz.</p>
+          <p className="text-sm font-medium text-green-700">
+            Mesajınız e-posta ile iletildi. En kısa sürede sizinle iletişime geçeceğiz.
+          </p>
+        ) : status === "error" ? (
+          <p className="text-sm font-medium text-primary">{errorMessage}</p>
         ) : (
           <p className="text-xs text-gray-600">Göndermeden önce tüm alanları eksiksiz doldurunuz.</p>
         )}
@@ -135,4 +183,3 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 const inputClass =
   "w-full rounded-sm border border-border bg-white px-3 py-2 text-sm text-gray-900 shadow-card outline-none transition-colors placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/15";
-

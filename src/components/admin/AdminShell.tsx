@@ -42,6 +42,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
   const nav = [
     { href: "/admin/blog", label: "Blog Yazıları" },
+    { href: "/admin/blog/topics", label: "SEO Konu Havuzu" },
     { href: "/admin/blog/new", label: "Yeni Yazı" },
     { href: "/admin/blog/generate", label: "AI Üret" }
   ];
@@ -81,7 +82,12 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             {nav.map((item) => {
               const active =
                 pathname === item.href ||
-                (item.href !== "/admin/blog" && pathname.startsWith(`${item.href}/`));
+                (item.href === "/admin/blog"
+                  ? pathname.startsWith("/admin/blog/") &&
+                    !pathname.startsWith("/admin/blog/new") &&
+                    !pathname.startsWith("/admin/blog/generate") &&
+                    !pathname.startsWith("/admin/blog/topics")
+                  : pathname.startsWith(`${item.href}/`));
               return (
               <Link
                 key={item.href}

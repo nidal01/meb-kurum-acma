@@ -53,3 +53,34 @@ export type PostWriteInput = {
   status?: BlogPostStatus;
   authorId?: string | null;
 };
+
+export type SeoKeyword = {
+  id: string;
+  keyword: string;
+  priority: number;
+  source: "manual" | "site" | "ai";
+  active: boolean;
+  createdAt: string;
+};
+
+export type TopicPoolItem = {
+  id: string;
+  weekKey: string;
+  topic: string;
+  targetKeyword: string;
+  slotOrder: number;
+  status: "pending" | "used" | "skipped";
+  source: "ai" | "manual";
+  seoRationale: string;
+  usedAt: string | null;
+  postId: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type GeneratedTopicPlan = {
+  topic: string;
+  targetKeyword: string;
+  seoRationale: string;
+  slotOrder: number;
+};

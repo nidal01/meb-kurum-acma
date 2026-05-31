@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { WhatsAppLink } from "@/components/contact/WhatsAppLink";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { RichText } from "@/components/content/RichText";
 import { makeFaqSchemaJsonLd, makePageSeoText, makeSiteWideFaq } from "@/lib/longform";
@@ -55,6 +56,12 @@ export default function ContactPage() {
                   <a href={SITE_CONTACT.emailMailto} className="hover:text-primary">
                     {SITE_CONTACT.email}
                   </a>
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-gray-900">WhatsApp</dt>
+                <dd className="mt-1">
+                  <WhatsAppLink variant="button" label="WhatsApp ile hemen yazın" className="w-full" />
                 </dd>
               </div>
               <div>

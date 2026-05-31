@@ -100,8 +100,13 @@ export function buildRootMetadata(): Metadata {
   const ogImage = SITE_ASSETS.ogImage;
   const defaultTitle = formatMetaTitle("Kurum Açma Danışmanlığı");
 
+  const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
+
   return {
     metadataBase: new URL(SITE_URL),
+    ...(googleVerification
+      ? { verification: { google: googleVerification } }
+      : {}),
     title: {
       default: defaultTitle,
       template: `${META_TITLE_PREFIX} | %s`

@@ -7,6 +7,7 @@ import { SiteLogo } from "@/components/layout/SiteLogo";
 const NAV = [
   { href: "/", label: "Ana Sayfa" },
   { href: "/hizmetler", label: "Hizmetlerimiz" },
+  { href: "/blog", label: "Blog" },
   { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/iletisim", label: "İletişim" }
 ] as const;

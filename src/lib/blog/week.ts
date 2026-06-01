@@ -21,7 +21,7 @@ export const WEEKDAY_LABELS = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", 
 
 export function slotOrderLabel(order: number): string {
   const day = Math.floor(order / 2);
-  const half = order % 2 === 0 ? "09:00" : "17:00";
+  const half = order % 2 === 0 ? "11:45" : "17:00";
   return `${WEEKDAY_LABELS[day] ?? "?"} · ${half}`;
 }
 

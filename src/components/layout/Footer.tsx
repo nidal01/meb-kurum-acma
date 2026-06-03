@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { GoogleMapEmbed } from "@/components/contact/GoogleMapEmbed";
 import { WhatsAppLink } from "@/components/contact/WhatsAppLink";
-import { SITE_CONTACT, SITE_MAPS } from "@/lib/site";
+import { SITE_CONTACT, SITE_MAPS, SITE_NAME } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -10,10 +10,18 @@ export function Footer() {
       <Container className="py-10">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <p className="text-sm font-semibold text-gray-900">MEB Kurum Açma Danışmanlığı</p>
+            <p className="text-sm font-semibold text-gray-900">
+              <Link href="/" title="MEB Oyun Evi — Kurum Açma Danışmanlığı" className="hover:text-primary">
+                {SITE_NAME}
+              </Link>
+            </p>
             <p className="mt-3 text-sm leading-7 text-gray-700">
-              Mevzuata uygun, sistemli ve şeffaf danışmanlık yaklaşımıyla kurum açılış süreçlerinizi güvenle yönetmenize
-              yardımcı oluruz.
+              <strong>MEB Oyun Evi</strong>; meb kurum açma, özel öğretim kurumu açılışı ve
+              kurum devir süreçlerinde mevzuata uygun, sistemli ve şeffaf{" "}
+              <Link href="/" className="font-medium text-primary hover:underline">
+                kurum açma danışmanlığı
+              </Link>{" "}
+              sunar.
             </p>
           </div>
 
@@ -87,7 +95,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-border pt-6 text-xs text-gray-600 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} MEB Kurum Açma Danışmanlığı. Tüm hakları saklıdır.</p>
+          <p>© {new Date().getFullYear()} {SITE_NAME}. Tüm hakları saklıdır.</p>
           <p>
             Kurumsal web sitesi —{" "}
             <Link className="font-medium text-gray-800 hover:text-primary" href="/iletisim">

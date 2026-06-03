@@ -260,10 +260,14 @@ export function makeServiceFaq(service: Service): Faq[] {
   return [...common, ...(specific[service.slug] ?? [])];
 }
 
-export function makeFaqSchemaJsonLd(faq: Faq[]) {
+export function makeFaqSchemaJsonLd(faq: Faq[], options?: { pageUrl?: string; aboutOrgId?: boolean }) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    ...(options?.pageUrl ? { "@id": `${options.pageUrl}#faq` } : {}),
+    ...(options?.aboutOrgId ? { about: { "@id": `${SITE_URL}/#organization` } } : {}),
+    inLanguage: "tr-TR",
+    isPartOf: { "@id": `${SITE_URL}/#website` },
     mainEntity: faq.map((f) => ({
       "@type": "Question",
       name: f.q,

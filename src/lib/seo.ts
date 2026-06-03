@@ -10,7 +10,7 @@ import {
 } from "@/lib/site";
 
 export type PageSeoInput = {
-  /** Sayfa adı; tam başlık: T.C. Millî Eğitim Bakanlığı | {title} */
+  /** Sayfa adı; tam başlık: MEB Oyun Evi | {title} */
   title: string;
   description: string;
   path?: string;
@@ -22,10 +22,15 @@ export type PageSeoInput = {
   ogImage?: string;
 };
 
-/** Tüm meta ve OG başlıkları bu önek ile başlar */
+/**
+ * Tüm meta ve OG başlıkları "MEB Oyun Evi | {segment}" formatında çalışır.
+ * Boş veya prefix ile başlayan segmentler tekrar prefix eklemez (çift başlık önlenir).
+ */
 export function formatMetaTitle(segment: string): string {
   const trimmed = segment.trim();
-  if (trimmed.startsWith(META_TITLE_PREFIX)) return trimmed;
+  if (!trimmed) return META_TITLE_PREFIX;
+  if (trimmed === META_TITLE_PREFIX) return trimmed;
+  if (trimmed.startsWith(`${META_TITLE_PREFIX} |`)) return trimmed;
   return `${META_TITLE_PREFIX} | ${trimmed}`;
 }
 
@@ -94,11 +99,12 @@ export function buildPageMetadata(input: PageSeoInput): Metadata {
   };
 }
 
-/** Kök layout — favicon, varsayılan OG */
+/** Kök layout — favicon, varsayılan OG, marka başlığı */
 export function buildRootMetadata(): Metadata {
   const canonical = SITE_URL;
   const ogImage = SITE_ASSETS.ogImage;
-  const defaultTitle = formatMetaTitle("Kurum Açma Danışmanlığı");
+  // Hedef anahtar kelimeler doğrudan title segmentine yedirildi.
+  const defaultTitle = formatMetaTitle("Kurum Açma ve Başvuru Danışmanlığı");
 
   const googleVerification = process.env.GOOGLE_SITE_VERIFICATION;
 

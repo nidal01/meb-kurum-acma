@@ -26,8 +26,24 @@ export default async function BlogPage() {
         subtitle="Kurum açma süreçleri, mevzuat ve danışmanlık konularında bilgilendirme yazıları."
       />
 
-      <p className="mt-4 max-w-3xl text-sm leading-7 text-gray-600">
-        Yazılar bilgilendirme amaçlıdır; güncel mevzuat ve il uygulamaları için ön değerlendirme önerilir.
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-gray-700">
+        <Link
+          href="/"
+          title="MEB Oyun Evi — Kurum Açma ve Başvuru Danışmanlığı"
+          className="font-semibold text-primary underline-offset-4 hover:underline"
+        >
+          MEB Oyun Evi
+        </Link>{" "}
+        blogunda; meb kurum açma, özel öğretim kurumu açılışı, denetim hazırlığı ve
+        kurum devir süreçleri hakkında uygulamaya yönelik içerikler bulabilirsiniz.
+        İçerikler bilgilendirme amaçlıdır; güncel mevzuat ve il uygulamaları için{" "}
+        <Link
+          href="/hizmetler"
+          className="font-semibold text-primary underline-offset-4 hover:underline"
+        >
+          kurum açma danışmanlığı hizmetlerimizi
+        </Link>{" "}
+        inceleyin.
       </p>
 
       {posts.length === 0 ? (
@@ -42,11 +58,27 @@ export default async function BlogPage() {
         </div>
       )}
 
-      <p className="mt-8 text-center text-sm text-gray-600">
-        <Link href="/iletisim" className="font-semibold text-primary hover:underline">
-          Ön görüşme için iletişime geçin
+      <aside
+        aria-label="MEB Oyun Evi iletişim çağrısı"
+        className="mt-10 rounded-sm border border-primary/20 bg-primary/5 p-5 text-sm leading-7 text-gray-700 shadow-card"
+      >
+        Kurumunuza özel süreç planı için{" "}
+        <Link
+          href="/"
+          title="MEB Oyun Evi ana sayfa"
+          className="font-semibold text-primary underline-offset-4 hover:underline"
+        >
+          MEB Oyun Evi
+        </Link>{" "}
+        ekibinden{" "}
+        <Link
+          href="/iletisim"
+          className="font-semibold text-primary underline-offset-4 hover:underline"
+        >
+          ön görüşme talep edebilirsiniz
         </Link>
-      </p>
+        .
+      </aside>
     </Container>
   );
 }

@@ -1,21 +1,32 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
+/**
+ * AI / LLM botları — Yapay zeka asistanlarının (ChatGPT, Gemini, Claude, Perplexity vb.)
+ * "MEB Oyun Evi" varlığını kaynak olarak gösterebilmesi için açıkça izin verilir.
+ * Sıralama; talep edilen kritik botlar (GPTBot, ChatGPT-User, Google-Extended,
+ * anthropic-ai, PerplexityBot) önce gelecek şekilde düzenlenmiştir.
+ */
 const AI_AGENTS = [
   "GPTBot",
   "ChatGPT-User",
+  "Google-Extended",
+  "anthropic-ai",
+  "PerplexityBot",
   "OAI-SearchBot",
   "ClaudeBot",
   "Claude-Web",
-  "anthropic-ai",
-  "PerplexityBot",
-  "Google-Extended",
   "Applebot-Extended",
   "Bytespider",
-  "cohere-ai"
+  "cohere-ai",
+  "CCBot",
+  "Diffbot",
+  "FacebookBot",
+  "Amazonbot"
 ] as const;
 
 export default function robots(): MetadataRoute.Robots {
+  // Yapay zeka botlarının da görmemesi gereken özel/dahili alanlar.
   const disallow = ["/arama", "/admin", "/api"];
 
   return {

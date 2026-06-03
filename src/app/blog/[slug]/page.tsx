@@ -88,13 +88,68 @@ export default async function BlogPostPage({ params }: Props) {
 
           <BlogRelatedLinks currentSlug={slug} relatedPosts={relatedPosts} />
 
-          <div className="mt-8 rounded-sm border border-primary/20 bg-primary/5 p-4 text-sm leading-7 text-gray-700">
-            Bu içerik bilgilendirme amaçlıdır. Kurumunuza özel süreç için{" "}
-            <Link href="/iletisim" className="font-semibold text-primary hover:underline">
-              ön görüşme talep edebilirsiniz
-            </Link>
-            .
-          </div>
+          {/*
+            Brand CTA — blog detayından ana sayfa ve hizmetler sayfasına
+            güçlü anchor text'lerle otorite transferi (PageRank flow).
+          */}
+          <aside
+            aria-label="MEB Oyun Evi danışmanlık çağrısı"
+            className="mt-8 rounded-sm border border-primary/20 bg-primary/5 p-5 shadow-card"
+          >
+            <h2 className="text-base font-semibold text-gray-900">
+              Süreci profesyonel yönetmek ister misiniz?
+            </h2>
+            <p className="mt-2 text-sm leading-7 text-gray-700">
+              Bu içerik bilgilendirme amaçlıdır. Kurumunuza özel başvuru sürecinde{" "}
+              <Link
+                href="/"
+                title="MEB Oyun Evi — Kurum Açma ve Başvuru Danışmanlığı"
+                className="font-semibold text-primary underline-offset-4 hover:underline"
+              >
+                MEB Oyun Evi
+              </Link>{" "}
+              ekibi; evrak hazırlığı, fiziki şart kontrolü ve denetim simülasyonunu uçtan
+              uca yönetir.
+            </p>
+            <ul className="mt-3 grid gap-2 text-sm leading-6 text-gray-700 sm:grid-cols-2">
+              <li>
+                <Link
+                  href="/"
+                  title="MEB kurum açma danışmanlığı"
+                  className="text-primary underline-offset-4 hover:underline"
+                >
+                  → MEB kurum açma danışmanlığı
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/hizmetler"
+                  title="Tüm kurum açma danışmanlık hizmetleri"
+                  className="text-primary underline-offset-4 hover:underline"
+                >
+                  → Kurum açma danışmanlığı hizmetleri
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/iletisim"
+                  title="MEB Oyun Evi ile ön görüşme"
+                  className="text-primary underline-offset-4 hover:underline"
+                >
+                  → Ön görüşme talebi
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/hakkimizda"
+                  title="MEB Oyun Evi danışmanlık yaklaşımı"
+                  className="text-primary underline-offset-4 hover:underline"
+                >
+                  → Danışmanlık yaklaşımımız
+                </Link>
+              </li>
+            </ul>
+          </aside>
         </article>
 
         <div className="lg:col-span-4">

@@ -16,7 +16,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
         <div className="relative aspect-[16/9] bg-surface">
           <Image
             src={cover}
-            alt=""
+            alt={post.title}
             fill
             className="object-cover transition-transform duration-200 group-hover:scale-[1.02]"
             unoptimized={cover.startsWith("http") || cover.endsWith(".svg")}

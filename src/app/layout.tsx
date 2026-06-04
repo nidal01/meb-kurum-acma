@@ -5,6 +5,7 @@ import { ConditionalSiteChrome } from "@/components/layout/ConditionalSiteChrome
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { SiteAeo } from "@/components/seo/SiteAeo";
 import { buildRootMetadata } from "@/lib/seo";
+import { Analytics } from "@vercel/analytics/next";
 
 const roboto = Roboto({
   subsets: ["latin", "latin-ext"],
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body className={[roboto.className, "min-h-dvh bg-white text-text antialiased"].join(" ")}>
         <GoogleAnalytics />
         <ConditionalSiteChrome>{children}</ConditionalSiteChrome>
+        <Analytics />
       </body>
     </html>
   );

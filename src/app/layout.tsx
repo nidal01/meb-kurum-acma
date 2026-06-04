@@ -6,6 +6,7 @@ import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { SiteAeo } from "@/components/seo/SiteAeo";
 import { buildRootMetadata } from "@/lib/seo";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const roboto = Roboto({
   subsets: ["latin", "latin-ext"],
@@ -35,6 +36,7 @@ export default function RootLayout({
         <GoogleAnalytics />
         <ConditionalSiteChrome>{children}</ConditionalSiteChrome>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

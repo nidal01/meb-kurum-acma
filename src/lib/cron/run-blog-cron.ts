@@ -3,6 +3,7 @@ import { generateBlogPostWithGemini } from "@/lib/gemini/generate-post";
 import { insertBlogDraft, isBlogDbConfigured, publishBlogPost } from "@/lib/blog/db";
 import { markTopicUsed, pickTopicForSlot } from "@/lib/blog/topic-db";
 import { pickNextBlogTopic } from "@/lib/blog/topics";
+import { notifyBlogPostPublished } from "@/lib/seo/notify";
 
 export type BlogCronResult = {
   topic: string;
@@ -43,6 +44,9 @@ export async function runBlogCron(slot: 0 | 1): Promise<BlogCronResult> {
 
   if (autoPublish) {
     const published = await publishBlogPost(saved.id);
+    notifyBlogPostPublished(published.slug).catch((err) =>
+      console.error("[cron] arama motoru bildirimi başarısız:", err)
+    );
     return { topic, slot, post: published, autoPublished: true };
   }
 

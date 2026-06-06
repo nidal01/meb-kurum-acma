@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
+import { getWwwSiteUrl } from "@/lib/sitemap";
 
 /**
  * AI / LLM botları — Yapay zeka asistanlarının (ChatGPT, Gemini, Claude, Perplexity vb.)
@@ -42,7 +43,11 @@ export default function robots(): MetadataRoute.Robots {
         disallow
       }))
     ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    sitemap: [
+      `${SITE_URL}/sitemap.xml`,
+      `${SITE_URL}/sitemap-www.xml`,
+      `${getWwwSiteUrl()}/sitemap-www.xml`
+    ],
     host: SITE_URL
   };
 }

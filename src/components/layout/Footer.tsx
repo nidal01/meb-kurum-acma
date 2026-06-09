@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { GoogleMapEmbed } from "@/components/contact/GoogleMapEmbed";
 import { WhatsAppLink } from "@/components/contact/WhatsAppLink";
-import { SITE_CONTACT, SITE_MAPS, SITE_NAME } from "@/lib/site";
+import { SITE_CONTACT, SITE_NAME } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -76,21 +75,7 @@ export function Footer() {
 
           <div>
             <p className="text-sm font-semibold text-gray-900">Adres</p>
-            <p className="mt-3 text-sm leading-7 text-gray-700">
-              {SITE_CONTACT.address}
-              <br />
-              <a
-                href={SITE_MAPS.openUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-primary hover:underline"
-              >
-                Haritada görüntüle
-              </a>
-            </p>
-            <div className="mt-4">
-              <GoogleMapEmbed minHeight={180} />
-            </div>
+            <p className="mt-3 text-sm leading-7 text-gray-700">{SITE_CONTACT.address}</p>
           </div>
         </div>
 
